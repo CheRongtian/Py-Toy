@@ -1,0 +1,1 @@
+/usr/bin/cc  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/server.dir/TCPserver.c.o CMakeFiles/server.dir/slidingwindow.c.o CMakeFiles/server.dir/checksum.c.o -o server

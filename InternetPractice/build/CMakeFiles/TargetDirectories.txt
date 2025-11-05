@@ -1,0 +1,4 @@
+/Users/cherongtian/Desktop/demo projects/Python/InternetPractice/build/CMakeFiles/server.dir
+/Users/cherongtian/Desktop/demo projects/Python/InternetPractice/build/CMakeFiles/client.dir
+/Users/cherongtian/Desktop/demo projects/Python/InternetPractice/build/CMakeFiles/edit_cache.dir
+/Users/cherongtian/Desktop/demo projects/Python/InternetPractice/build/CMakeFiles/rebuild_cache.dir
