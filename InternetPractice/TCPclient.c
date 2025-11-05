@@ -10,6 +10,23 @@
 # define SERVER_PORT 5432
 # define MAX_LINE 256
 
+u_short cksum(u_short *buf, int count) // Checksum process
+{
+    register u_long sum = 0;
+    
+    while(count --)
+    {
+        sum += *buf++;
+        if(sum & 0xFFFF0000) // if upper 16 bit AND sum == 1
+        {
+            /* carry occurred, so wrap around */
+            sum &= 0xFFFF; // sum AND 16-bit 1
+            sum ++; // wrap around
+        }
+    }
+    return ~(sum & 0xFFFF);
+}
+
 int main(int argc, char * argv[])
 {
     FILE *fp;
@@ -62,7 +79,13 @@ int main(int argc, char * argv[])
     {
         buf[MAX_LINE-1] = '\0';
         len = strlen(buf) + 1;
-        send(s, buf, len, 0);
+        u_short checksum = cksum((u_short *)buf, len);
+
+        char sendbuf[MAX_LINE + 2];
+        memcpy(sendbuf, buf, len);
+        memcpy(sendbuf + len, &checksum, sizeof(checksum));
+
+        send(s, sendbuf, len + sizeof(checksum), 0);
     }
     
     return 0;
