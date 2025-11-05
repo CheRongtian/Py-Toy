@@ -6,27 +6,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include "checksum.h"
+#include "slidingwindow.h" // used for like reliable UDP, here just for simulation
 
 # define SERVER_PORT 5432
 # define MAX_LINE 256
 # define MAX_PENDING 5
-
-u_short cksum(u_short *buf, int count) // Checksum process
-{
-    register u_long sum = 0;
-    
-    while(count --)
-    {
-        sum += *buf++;
-        if(sum & 0xFFFF0000) // if upper 16 bit AND sum == 1
-        {
-            /* carry occurred, so wrap around */
-            sum &= 0xFFFF; // sum AND 16-bit 1
-            sum ++; // wrap around
-        }
-    }
-    return ~(sum & 0xFFFF);
-}
 
 int main()
 {
