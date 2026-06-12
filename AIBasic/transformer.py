@@ -182,15 +182,3 @@ class Transformer(nn.Module):
 def generate_mask(size):
     mask = torch.triu(torch.ones(size, size), diagonal=1).bool()
     return mask==0
-
-src_vocab = 10000
-tgt_vocab = 10000
-
-model = Transformer(src_vocab, tgt_vocab)
-src = torch.randint(0, src_vocab, (32, 10))
-tgt = torch.randint(0, tgt_vocab, (32, 10))
-
-tgt_mask = generate_mask(tgt.size(1)).to(tgt.device)
-
-out = model(src, tgt, tgt_mask=tgt_mask)
-print(out.shape)
